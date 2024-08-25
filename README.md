@@ -1,22 +1,24 @@
 
-<div align="center">
-<h1>regression-js</h1>
-<a href="https://travis-ci.org/Tom-Alexander/regression-js">
-<img src="https://travis-ci.org/Tom-Alexander/regression-js.svg?branch=master"/>
-</a>
-<a href="https://npmjs.com/package/regression">
-<img src="https://img.shields.io/npm/v/regression.svg" alt="npm version" />
-</a>
-<a href="https://npmjs.com/package/regression">
-<img src="https://img.shields.io/npm/dt/regression.svg" alt="npm downloads" />
-</a>
-<a href="https://codeclimate.com/github/Tom-Alexander/regression-js/coverage"><img src="https://codeclimate.com/github/Tom-Alexander/regression-js/badges/coverage.svg" /></a>
-<br/>
-<br/>
-<p>
+A fork for my own purposes
+
+the main differences are:
+
+- (3.0.0)
+  - js is now typescript
+  - excluded all interpolations other than linear
+  - added `linearBig` that uses `big.js` for everything
+    - default is max precision `20`
+  - uses vite for bundling
+
+TODO add tests for `linearBig`
+
+TODO currently `yarn build` and `yarn buildMini` will clear the `dist`, so we do not build normal and minified in one go
+
+---
+
+# regression-js
+
 regression-js is a JavaScript module containing a collection of linear least-squares fitting methods for simple data analysis.
-</p>
-</div>
 
 ## Installation
 This module works on node and in the browser. It is available as the 'regression' package on [npm](https://www.npmjs.com/package/regression). It is also available on a [CDN](https://cdnjs.com/libraries/regression).
