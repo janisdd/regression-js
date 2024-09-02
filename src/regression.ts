@@ -3,6 +3,10 @@ import Big, {RoundingMode} from 'big.js'
 type DataPoint = number[] // [number, number]
 type DataPointBig = Big[] // [Big, Big]
 
+type DEFAULT_OPTIONS_TYPE = {
+  [key in keyof typeof DEFAULT_OPTIONS]?: typeof DEFAULT_OPTIONS[key]
+}
+
 const DEFAULT_OPTIONS = {
   precision: 2,
   precisionBig: 20, //default for Big.DP https://mikemcl.github.io/big.js/#dp
@@ -91,14 +95,14 @@ function _linearBig(data: DataPointBig[], options: typeof DEFAULT_OPTIONS) {
 
   const gradient = run.cmp(zero) === 0
                    ? zero
-                   : roundBig(rise.div(run), options.precision, options.bigRoundingMode as RoundingMode)
+                   : roundBig(rise.div(run), options.precisionBig, options.bigRoundingMode as RoundingMode)
 
-  const intercept = roundBig((sum[1].div(len)).sub((gradient.mul(sum[0])).div(len)), options.precision, options.bigRoundingMode as RoundingMode)
+  const intercept = roundBig((sum[1].div(len)).sub((gradient.mul(sum[0])).div(len)), options.precisionBig, options.bigRoundingMode as RoundingMode)
 
 
   const predict = (x: Big) => ([
-      roundBig(x, options.precision, options.bigRoundingMode as RoundingMode),
-      roundBig((gradient.mul(x)).add(intercept), options.precision, options.bigRoundingMode as RoundingMode)]
+      roundBig(x, options.precisionBig, options.bigRoundingMode as RoundingMode),
+      roundBig((gradient.mul(x)).add(intercept), options.precisionBig, options.bigRoundingMode as RoundingMode)]
   )
 
   return {
@@ -114,13 +118,13 @@ function _linearBig(data: DataPointBig[], options: typeof DEFAULT_OPTIONS) {
 }
 
 export default {
-  linear: (data: DataPoint[], options?: typeof DEFAULT_OPTIONS) => {
+  linear: (data: DataPoint[], options?: DEFAULT_OPTIONS_TYPE) => {
     return _linear(data, {
       ...DEFAULT_OPTIONS,
       ...options,
     })
   },
-  linearBig: (data: DataPointBig[], options?: typeof DEFAULT_OPTIONS) => {
+  linearBig: (data: DataPointBig[], options?: DEFAULT_OPTIONS_TYPE) => {
     return _linearBig(data, {
       ...DEFAULT_OPTIONS,
       ...options,
